@@ -22,7 +22,7 @@ namespace AddressBookIO
         public string state;
         public double zip;
         public double phoneNumber;
-        public string email;
+        public string email;       
 
         /// <summary>
         /// INITIALIZES A NEW INSTANCE OF CONTACT CLASS

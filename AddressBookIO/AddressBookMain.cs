@@ -8,6 +8,7 @@ namespace AddressBookIO
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     /// <summary>   
@@ -88,7 +89,7 @@ namespace AddressBookIO
             if (flag == false)
             {
                 contactList.Add(contact);
-                Console.WriteLine("\nContact " + firstName + " " + lastName + " added successfully");
+                Console.WriteLine("\nContact " + firstName + " " + lastName + " added successfully");                
 
                 /// ADDS THE ENTERED NAME IN A LIST IN THE DICTIONARY ALONG THE PROPER CITY AND STATE NAME
                 AddPersonInStateOrCityDictionary(city, fullName);
@@ -288,6 +289,23 @@ namespace AddressBookIO
                 Console.WriteLine(cityAndStatePersonDictionary[cityOrStateName].Count);
             else
                 Console.WriteLine(0);
+        }
+
+        /// <summary>
+        /// UC 11 : Sorts the contactList by names of contact.
+        /// </summary>
+        public void SortByName()
+        {
+            if (contactList.Count == 0)
+            {
+                Console.WriteLine("\nNo contact found, please add a contact to display");              
+            }
+            /// Sort the list according to condition provided
+            var v = contactList.OrderBy(c => c.firstName+c.lastName);            
+            foreach (var contact in v)
+            {      
+                Console.WriteLine("\nFullName: " + contact.firstName + " " + contact.lastName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nZip: " + contact.zip + "\nPhoneNumber: " + contact.phoneNumber + "\nEmail: " + contact.email + "\n");
+            }
         }
     }
 }

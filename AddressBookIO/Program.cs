@@ -52,7 +52,7 @@ namespace AddressBookIO
                     while (flag2)
                     {
                         Console.WriteLine("\nCurrent address book:" + currentAddressBookName);
-                        Console.WriteLine("Enter:\n1-To add a new contact\n2-To edit an existing contact\n3-To search for an existing contact\n4-To delete a contact\n5-To display all contacts in the address book\n6-To return to main menu");
+                        Console.WriteLine("Enter:\n1-To add a new contact\n2-To edit an existing contact\n3-To search for an existing contact\n4-To delete a contact\n5-To display all contacts in the address book sorted by Name\n6-To return to main menu");
                         int options2 = Convert.ToInt32(Console.ReadLine());
                         switch (options2)
                         {
@@ -69,7 +69,7 @@ namespace AddressBookIO
                                 addressBookList.addressBookListDictionary[currentAddressBookName].DeleteContact();
                                 break;
                             case 5:
-                                addressBookList.addressBookListDictionary[currentAddressBookName].ViewAllContacts();
+                                addressBookList.addressBookListDictionary[currentAddressBookName].SortByName();
                                 break;
                             case 6:
                                 flag2 = false;
