@@ -15,7 +15,7 @@ namespace AddressBookIO
             MainMenuOperation();
         }
         public static void MainMenuOperation()
-        {
+        {            
             AddressBookList addressBookList = new AddressBookList();
             bool flag1 = true;
             while (flag1)
@@ -52,7 +52,7 @@ namespace AddressBookIO
                     while (flag2)
                     {
                         Console.WriteLine("\nCurrent address book:" + currentAddressBookName);
-                        Console.WriteLine("Enter:\n1-To add a new contact\n2-To edit an existing contact\n3-To search for an existing contact\n4-To delete a contact\n5-To display all contacts in the address book sorted by Name\n6-To display contacts sorted by city,state or zip\n7-To return to main menu");
+                        Console.WriteLine("Enter:\n1-To add a new contact\n2-To edit an existing contact\n3-To search for an existing contact\n4-To delete a contact\n5-To display all contacts in the address book sorted by Name\n6-To display contacts sorted by city,state or zip\n7-To Write and then Read all contacts into the file\n8-To return to main menu");
                         int options2 = Convert.ToInt32(Console.ReadLine());
                         switch (options2)
                         {
@@ -75,6 +75,9 @@ namespace AddressBookIO
                                 addressBookList.addressBookListDictionary[currentAddressBookName].SortByCityStateOrZip();
                                 break;
                             case 7:
+                                FileIOStream.WriteFileStream(addressBookList.addressBookListDictionary[currentAddressBookName]);
+                                break;
+                            case 8:
                                 flag2 = false;
                                 break;
                         }
