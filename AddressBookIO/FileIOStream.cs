@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -87,7 +88,7 @@ namespace AddressBookIO
         }
 
         /// <summary>
-        /// UC 14 : 
+        /// UC 14 : Write into the already created CSV file or create one and then write
         /// </summary>
         /// <param name="addressBook"></param>
         public static void CSVFileWriting(AddressBookMain addressBook)
@@ -103,6 +104,54 @@ namespace AddressBookIO
             /// Clears all the buffered data and cache
             writer.Flush();
             writer.Close();            
+        }
+
+        /// <summary>
+        /// UC 15 : Read the Json file contents if existing otherwise throw exception
+        /// </summary>
+        /// <param name="addressBook"></param>
+        public static void JSONFileReading(AddressBookMain addressBook)
+        {
+            try
+            {
+                string jsonFilePath = @$"C:\Users\hp\source\repos\AddressBookIO\AddressBookIO\{addressBook.addressBookName}ADDRESSBOOK.json";
+                /// Initialize a new instance of the StreamReader class
+                var reader = new StreamReader(jsonFilePath);
+                /// String fetches all the text inside the json file
+                string jsonContent = File.ReadAllText(jsonFilePath);
+                /// Returns the list of contacts corresponding to the json file
+                var records = JsonConvert.DeserializeObject<List<Contact>>(jsonContent);                
+                foreach (Contact contact in records)
+                {
+                    Console.WriteLine("\nFullName: " + contact.firstName + " " + contact.lastName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nZip: " + contact.zip + "\nPhoneNumber: " + contact.phoneNumber + "\nEmail: " + contact.email + "\n");
+                }
+                /// Close the object so others can use the file residing at the path
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                /// If the file is not present at the path you need to create new file at that path
+                Console.WriteLine(e.Message);
+                Console.WriteLine("File you are trying to access does not exist please create one");
+            }
+        }
+
+        /// <summary>
+        /// UC 15 : Write into the already created Json file or create one and then write
+        /// </summary>
+        /// <param name="addressBook"></param>
+        public static void JSONFileWriting(AddressBookMain addressBook)
+        {
+            string jsonFilePath = @$"C:\Users\hp\source\repos\AddressBookIO\AddressBookIO\{addressBook.addressBookName}ADDRESSBOOK.json";
+            /// Create an instance of JsonSerializer class
+            JsonSerializer jsonSerializer = new JsonSerializer();
+            /// Initialize an instance of StreamWriter class to perform write operation
+            var writer = new StreamWriter(jsonFilePath);
+            /// Writes into the json file using the specified TextWriter 
+            jsonSerializer.Serialize(writer, addressBook.contactList);           
+            /// Clears all the buffered data and cache
+            writer.Flush();
+            writer.Close();
         }
     }
 }
